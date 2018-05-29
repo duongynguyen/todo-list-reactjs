@@ -3,6 +3,7 @@ import './App.css';
 import TaskForm from './components/TaskForm';
 import Control from './components/Control';
 import TaskList from './components/TaskList';
+import { findIndex } from 'lodash';
 
 class App extends Component {
     constructor(props) {
@@ -17,7 +18,7 @@ class App extends Component {
             },
             keyword : '',            
             sortBy : 'name',
-            sortValue : 1 
+            sortValue : 1
         }
     }    
 
@@ -84,7 +85,10 @@ class App extends Component {
 
     onUpdateStatus = (id) => {
         var { tasks } = this.state; // tasks = this.state.tasks
-        var index = this.findIndex(id);
+        // var index = this.findIndex(id);
+        var index = findIndex( tasks, (task) => { 
+            return task.id === id;
+        });
         if (index !== -1) {
             tasks[index].status = !tasks[index].status;
             this.setState({
@@ -110,7 +114,10 @@ class App extends Component {
 
     onUpdate = (id) => {
         var { tasks } = this.state;
-        var index = this.findIndex(id);
+        // var index = this.findIndex(id);
+        var index = findIndex(tasks, (task) => { 
+            return task.id === id;
+        });
         var taskEditting = tasks[index];
         this.setState({
             taskEditting : taskEditting
@@ -159,6 +166,9 @@ class App extends Component {
                 tasks = tasks.filter((task) => {
                     return task.name.toLowerCase().indexOf(filter.name) !== -1;
                 });
+                // tasks = filter(tasks, (task) => {
+                //     return task.name.toLowerCase().indexOf(filter.name) !== -1;
+                // });
             }
             tasks = tasks.filter((task) => {
                 if (filter.status === -1) {
@@ -210,8 +220,7 @@ class App extends Component {
                         </div>
                         <div className="row mt-15">
                             <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                <TaskList 
-                                    tasks={ tasks }
+                                <TaskList                                     
                                     onUpdateStatus={ this.onUpdateStatus }
                                     onDelete={ this.onDelete }
                                     onUpdate={ this.onUpdate }
