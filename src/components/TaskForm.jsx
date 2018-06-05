@@ -39,7 +39,7 @@ class TaskForm extends Component {
         }
     }
 
-    onCloseForm = () => {
+    onExitForm = () => {
         this.props.onCloseForm();
     }
 
@@ -78,7 +78,7 @@ class TaskForm extends Component {
             <div className="panel-heading">
                 <h3 className="panel-title">
                     { id !== '' ? "Chỉnh Sửa Công Việc" : "Thêm Công Việc"}
-                    <span className="fa fa-times-circle text-right" onClick={ this.onCloseForm }></span>                    
+                    <span className="fa fa-times-circle text-right" onClick={ this.onExitForm }></span>                    
                 </h3>
             </div>
             <div className="panel-body">
@@ -114,6 +114,9 @@ const mapDispatchToProps = (dispatch, props) => {
     return {
         onAddTask : (task) => {
             dispatch(actions.addTask(task));
+        },
+        onCloseForm: () => {
+            dispatch(actions.closeForm());
         }
     }
 };
