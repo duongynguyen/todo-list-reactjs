@@ -47,23 +47,6 @@ class App extends Component {
         });
     }
 
-    onSubmit = (data) => {
-        var { tasks } = this.state; // To get list tasks
-        if (data.id === '') {
-            data.id = this.generateID();
-            tasks.push(data);
-        } else {
-            var index = this.findIndex(data.id);
-            tasks[index] = data;
-        }
-        
-        this.setState({
-            tasks : tasks,
-            taskEditting : null
-        });
-        localStorage.setItem('tasks', JSON.stringify(tasks));
-    }
-
     onUpdateStatus = (id) => {
         var { tasks } = this.state; // tasks = this.state.tasks
         // var index = this.findIndex(id);
@@ -179,7 +162,7 @@ class App extends Component {
         //     });
         // }
         var elementTaskForm = isDisplayForm 
-            ? <TaskForm onCloseForm={ this.onCloseForm } onSubmit={ this.onSubmit } task={ taskEditting }/> 
+            ? <TaskForm  task={ taskEditting }/> 
             : '';
         return (
             <div className="container">
