@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect }
 
 class TaskItem extends Component {
     onUpdateStatus = () => {
