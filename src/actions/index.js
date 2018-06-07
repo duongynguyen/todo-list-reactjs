@@ -30,3 +30,10 @@ export const closeForm = () => {
         type: types.CLOSE_FORM
     }
 }
+
+export const deleteTask = (id) => {
+    return {
+        type: types.DELETE_TASK,
+        id
+    }
+}
