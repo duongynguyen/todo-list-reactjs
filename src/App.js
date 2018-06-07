@@ -43,20 +43,6 @@ class App extends Component {
         });
     }
 
-    onUpdateStatus = (id) => {
-        var { tasks } = this.state; // tasks = this.state.tasks
-        // var index = this.findIndex(id);
-        var index = findIndex( tasks, (task) => { 
-            return task.id === id;
-        });
-        if (index !== -1) {
-            tasks[index].status = !tasks[index].status;
-            this.setState({
-                tasks : tasks
-            });
-            localStorage.setItem('tasks', JSON.stringify(tasks));
-        }
-    }
 //test
     onDelete = (id) => {
         var { tasks } = this.state;
@@ -82,17 +68,6 @@ class App extends Component {
             taskEditting : taskEditting
         });
         this.onShowForm();
-    }
-
-    findIndex = (id) => {
-        var { tasks } = this.state;
-        var result = -1;
-        tasks.forEach((task, index) => {
-            if (task.id === id){
-                result = index;
-            }
-        });
-        return result;
     }
 
     onFilter = (filterName, filterStatus) => {
@@ -181,7 +156,6 @@ class App extends Component {
                         <div className="row mt-15">
                             <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                 <TaskList                                     
-                                    onUpdateStatus={ this.onUpdateStatus }
                                     onDelete={ this.onDelete }
                                     onUpdate={ this.onUpdate }
                                     onFilter={ this.onFilter }
