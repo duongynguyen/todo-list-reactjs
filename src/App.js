@@ -43,13 +43,14 @@ class App extends Component {
         });
     }
 
-//test
-    onDelete = (id) => {
-        var { tasks } = this.state;
-        var index = this.findIndex(id);
-        console.log(index);
+    onUpdateStatus = (id) => {
+        var { tasks } = this.state; // tasks = this.state.tasks
+        // var index = this.findIndex(id);
+        var index = findIndex( tasks, (task) => { 
+            return task.id === id;
+        });
         if (index !== -1) {
-            tasks.splice(index, 1);
+            tasks[index].status = !tasks[index].status;
             this.setState({
                 tasks : tasks
             });
@@ -155,8 +156,7 @@ class App extends Component {
                         </div>
                         <div className="row mt-15">
                             <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                <TaskList                                     
-                                    onDelete={ this.onDelete }
+                                <TaskList
                                     onUpdate={ this.onUpdate }
                                     onFilter={ this.onFilter }
                                 /> 

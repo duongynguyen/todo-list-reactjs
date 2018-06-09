@@ -8,7 +8,8 @@ class TaskItem extends Component {
     }
 
     onDelete = () => {
-        this.props.onDelete(this.props.task.id);
+        this.props.onDeleteTask(this.props.task.id);
+        this.props.onCloseForm();
     }
 
     onUpdate = () => {
@@ -47,15 +48,21 @@ class TaskItem extends Component {
 const mapStateToProps = state => {
     return {
 
-    };
+    }
 };
 
 const mapDispatchToProps = (dispatch, props) => {
     return {
+        onDeleteTask: (id) => {
+            dispatch(actions.deleteTask(id));
+        },
+        onCloseForm: () => {
+            dispatch(actions.closeForm());
+        },
         onUpdateStatus: (id) => {
             dispatch(actions.updateStatus(id))
         }
-    };
-};
+    }
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(TaskItem);
