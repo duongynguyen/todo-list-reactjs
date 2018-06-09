@@ -34,6 +34,13 @@ var myReducer = (state = initialState, action) => {
             state.push(newTask);
             localStorage.setItem('tasks', JSON.stringify(state));
             return [...state]; // Be like map() function, it copy new array then pay back 
+        case types.DELETE_TASK:
+            var id = action.id;
+            var index = findIndex(state, id);
+            if (index !== -1) {
+                state.splice(index, 1); 
+            }
+            return [...state];               
         case types.UPDATE_STATUS_TASK:
             var id = action.id;
             var index = findIndex(state, id);
