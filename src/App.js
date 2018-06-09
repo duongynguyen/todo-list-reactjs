@@ -156,8 +156,7 @@ class App extends Component {
                         </div>
                         <div className="row mt-15">
                             <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                <TaskList                                     
-                                    onUpdateStatus={ this.onUpdateStatus }
+                                <TaskList
                                     onUpdate={ this.onUpdate }
                                     onFilter={ this.onFilter }
                                 /> 

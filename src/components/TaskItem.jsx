@@ -58,6 +58,9 @@ const mapDispatchToProps = (dispatch, props) => {
         },
         onCloseForm: () => {
             dispatch(actions.closeForm());
+        },
+        onUpdateStatus: (id) => {
+            dispatch(actions.updateStatus(id))
         }
     }
 }
