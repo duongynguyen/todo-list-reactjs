@@ -33,7 +33,7 @@ var myReducer = (state = initialState, action) => {
             };
             state.push(newTask);
             localStorage.setItem('tasks', JSON.stringify(state));
-            return [...state]; // Be like map() function, it copy new array then callback 
+            return state; // Be like map() function, it copy new array then callback 
         case types.DELETE_TASK:
             var id = action.id;
             var index = findIndex(state, id);
