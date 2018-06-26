@@ -44,3 +44,17 @@ export const updateStatus = (id) => {
         id // id: id
     }
 }
+
+export const editTask = (task) => {
+    return {
+        type: types.EDIT_TASK,
+        task
+    }
+}
+
+export const filterTask = (filter) => {
+    return {
+        type: types.FILTER_TABLE,
+        filter // filter: filter -> filterName, filterStatus
+    }
+}

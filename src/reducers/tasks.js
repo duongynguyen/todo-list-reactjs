@@ -22,30 +22,39 @@ var data = JSON.parse(localStorage.getItem('tasks'));
 var initialState = data ? data : [];
 
 var myReducer = (state = initialState, action) => {
+    var id = '';
+    var index = 0;
+
     switch(action.type) {
         case types.LIST_ALL:
             return state;
-        case types.ADD_TASK:
-            var newTask = {
-                id : randomID(),
+        case types.ADD_TASK:            
+            var task = {
+                id : action.task.id,
                 name : action.task.name,
                 status : action.task.status
             };
-            state.push(newTask);
+            if (!task.id) {
+                task.id = randomID();
+                state.push(task);
+            } else {
+                index = findIndex(state, task.id);
+                state[index] = task;
+            }
+            
             localStorage.setItem('tasks', JSON.stringify(state));
             return [...state]; // Be like map() function, it copy new array then callback 
         case types.DELETE_TASK:
-            var id = action.id;
-            var index = findIndex(state, id);
+            id = action.id;
+            index = findIndex(state, id);
             if (index !== -1) {
                 state.splice(index, 1); 
-                // Fix bug no update localStorage
                 localStorage.setItem('tasks', JSON.stringify(state));
             }
             return [...state];               
         case types.UPDATE_STATUS_TASK:
-            var id = action.id;
-            var index = findIndex(state, id);
+            id = action.id;
+            index = findIndex(state, id);
             if (index !== -1) {
                 state[index] = {
                     ...state[index],
