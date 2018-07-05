@@ -22,19 +22,7 @@ class App extends Component {
     }
 
     onToggleForm = () => {
-        var { itemEditting } = this.props;
-
-        if (itemEditting && itemEditting.id !== '') {
-            this.props.onOpenForm();
-        } else {
-            this.props.onToggleForm();
-        }
-
-        this.props.onClearTask({
-            id: '',
-            name: '',
-            status: false
-        })
+        this.props.onToggleForm();
     }
 
     onShowForm = () => {
@@ -80,8 +68,11 @@ class App extends Component {
     }
 
     render() {
-        var { sortBy, sortValue } = this.state; // var tasks = this.state.tasks;
+        var { taskEditting, sortBy, sortValue } = this.state; // var tasks = this.state.tasks;
         let { isDisplayForm } = this.props;
+        var elementTaskForm = isDisplayForm 
+            ? <TaskForm  task={ taskEditting }/> 
+            : '';
         return (
             <div className="container">
                 <div className="text-center">
