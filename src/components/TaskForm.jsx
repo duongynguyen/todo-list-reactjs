@@ -14,23 +14,25 @@ class TaskForm extends Component {
     }
 
     componentWillMount() {
-        if (this.props.task) {
+        if (this.props.itemEditting && this.props.itemEditting.id !== null) {
             this.setState ({
-                id : this.props.task.id,
-                name : this.props.task.name,
-                status : this.props.task.status
+                id : this.props.itemEditting.id,
+                name : this.props.itemEditting.name,
+                status : this.props.itemEditting.status
             });
+        } else {
+            this.onClear();
         }
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps && nextProps.task) {
+        if (nextProps && nextProps.itemEditting) {
             this.setState ({
-                id : nextProps.task.id,
-                name : nextProps.task.name,
-                status : nextProps.task.status
+                id : nextProps.itemEditting.id,
+                name : nextProps.itemEditting.name,
+                status : nextProps.itemEditting.status
             });
-        } else if (!nextProps.task) {
+        } else if (!nextProps.itemEditting) {
             this.setState ({
                 id : '',
                 name : '',
@@ -43,7 +45,7 @@ class TaskForm extends Component {
         this.props.onCloseForm();
     }
 
-    onChange = (event) => {
+    onHandleChange = (event) => {
         var target = event.target;
         var name = target.name;
         var value = target.value;
@@ -51,6 +53,7 @@ class TaskForm extends Component {
         if (name === 'status') {
             value = value === 'true' ? true : false;
         }
+
         this.setState({
             [name] : value
         });
@@ -72,7 +75,10 @@ class TaskForm extends Component {
     }
 
   render() {
-    var { id } = this.state;
+    var { id, name, status } = this.state;
+    var { isDisplayForm } = this.props;
+
+    if (!isDisplayForm) return null;
     return (        
         <div className="panel panel-warning">
             <div className="panel-heading">
@@ -85,10 +91,10 @@ class TaskForm extends Component {
                 <form onSubmit={ this.onSubmit }>
                     <div className="form-group">
                         <label>Tên :</label>
-                        <input type="text" className="form-control" name="name" value={ this.state.name } onChange={ this.onChange } />
+                        <input type="text" className="form-control" name="name" value={ name } onChange={ this.onHandleChange } />
                     </div>
                     <label>Trạng Thái :</label>
-                    <select className="form-control" required="required" name="status" value={ this.state.status } onChange={ this.onChange } >
+                    <select className="form-control" required="required" name="status" value={ status } onChange={ this.onHandleChange } >
                         <option value={true}>Kích Hoạt</option>
                         <option value={false}>Ẩn</option>
                     </select>
@@ -106,7 +112,8 @@ class TaskForm extends Component {
 
 const mapStateToProps = state => {
     return {
-
+        isDisplayForm: state.isDisplayForm,
+        itemEditting: state.itemEditting 
     }
 };
 
@@ -118,6 +125,7 @@ const mapDispatchToProps = (dispatch, props) => {
         onCloseForm: () => {
             dispatch(actions.closeForm());
         }
+        
     }
 };
 
