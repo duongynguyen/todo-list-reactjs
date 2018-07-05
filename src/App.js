@@ -11,30 +11,15 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            filter: {
-                name: '',
-                status: -1
-            },
-            keyword: '',
-            sortBy: 'name',
-            sortValue: 1
+            taskEditting : null,
+            keyword : '',
+            sortBy : 'name',
+            sortValue : 1
         }
     }
 
     onToggleForm = () => {
-        var { itemEditting } = this.props;
-
-        if (itemEditting && itemEditting.id !== '') {
-            this.props.onOpenForm();
-        } else {
-            this.props.onToggleForm();
-        }
-
-        this.props.onClearTask({
-            id: '',
-            name: '',
-            status: false
-        })
+        this.props.onToggleForm();
     }
 
     onShowForm = () => {
@@ -65,7 +50,7 @@ class App extends Component {
             }
         });
     }
-
+    
     onSearch = (keyword) => {
         this.setState({
             keyword: keyword
@@ -80,44 +65,11 @@ class App extends Component {
     }
 
     render() {
-        var { sortBy, sortValue } = this.state; // var tasks = this.state.tasks;
+        var { taskEditting, sortBy, sortValue } = this.state; // var tasks = this.state.tasks;
         let { isDisplayForm } = this.props;
-        // if (filter) {
-        //     if (filter.name) {                
-        //         tasks = tasks.filter((task) => {
-        //             return task.name.toLowerCase().indexOf(filter.name) !== -1;
-        //         });
-        //         // tasks = filter(tasks, (task) => {
-        //         //     return task.name.toLowerCase().indexOf(filter.name) !== -1;
-        //         // });
-        //     }
-        // tasks = tasks.filter((task) => {
-        //     if (filter.status === -1) {
-        //         return task;
-        //     } else {
-        //         return task.status === (filter.status === 1 ? true : false);
-        //     }
-        // })
-
-        // }
-        // if (keyword) {
-        //     tasks = tasks.filter((task) => {
-        //         return task.name.toLowerCase().indexOf(keyword) !== -1;
-        //     });
-        // } 
-        // if (sortBy === 'name') {
-        //     tasks.sort((a, b) => {
-        //         if (a.name > b.name) return sortValue;
-        //         else if (a.name < b.name) return -sortValue;
-        //         else return 0;
-        //     });
-        // } else {
-        //     tasks.sort((a, b) => {
-        //         if (a.status > b.status) return -sortValue;
-        //         else if (a.status < b.status) return sortValue;
-        //         else return 0;
-        //     });
-        // }
+        var elementTaskForm = isDisplayForm 
+            ? <TaskForm  task={ taskEditting }/> 
+            : '';
         return (
             <div className="container">
                 <div className="text-center">
