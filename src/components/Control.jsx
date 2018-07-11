@@ -6,7 +6,7 @@ class Control extends Component {
   render() {
     return (
         <div className="control">
-            <Search onSearch={ this.props.onSearch }/>
+            <Search />
             <Sort onSort={ this.props.onSort } sortBy={ this.props.sortBy } sortValue={ this.props.sortValue }/>
         </div>
     );
