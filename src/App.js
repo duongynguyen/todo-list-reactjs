@@ -19,41 +19,16 @@ class App extends Component {
     }
 
     onToggleForm = () => {
-        this.props.onToggleForm();
-    }
-
-    onShowForm = () => {
-        this.setState({
-            isDisplayForm: true
-        });
-    }
-
-    onUpdate = (id) => {
-        var { tasks } = this.state;
-        // var index = this.findIndex(id);
-        var index = findIndex(tasks, (task) => {
-            return task.id === id;
-        });
-        var taskEditting = tasks[index];
-        this.setState({
-            taskEditting: taskEditting
-        });
-        this.onShowForm();
-    }
-
-    onFilter = (filterName, filterStatus) => {
-        filterStatus = parseInt(filterStatus, 10);
-        this.setState({
-            filter: {
-                name: filterName.toLowerCase(),
-                status: filterStatus
-            }
-        });
-    }
-    
-    onSearch = (keyword) => {
-        this.setState({
-            keyword: keyword
+        var { itemEditting } = this.props;
+        if (itemEditting && itemEditting.id !== '') {
+            this.props.onOpenForm();
+        } else {
+            this.props.onToggleForm();
+        }
+        this.props.onClearTask({
+            id: '',
+            name: '',
+            status: false,
         });
     }
 
@@ -87,7 +62,6 @@ class App extends Component {
                         </button>
                         <div className="row mt-15">
                             <Control
-                                onSearch={this.onSearch}
                                 onSort={this.onSort}
                                 sortBy={sortBy}
                                 sortValue={sortValue}
@@ -121,7 +95,7 @@ const mapDispatchToProps = (dispatch, props) => {
             dispatch(actions.toggleForm())
         },
         onClearTask: (task) => {
-            dispatch(actions.editTask(task));
+            dispatch(actions.editTask(task ));
         },
         onOpenForm: () => {
             dispatch(actions.openForm());

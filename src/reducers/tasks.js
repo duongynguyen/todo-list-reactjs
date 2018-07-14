@@ -28,7 +28,7 @@ var myReducer = (state = initialState, action) => {
     switch(action.type) {
         case types.LIST_ALL:
             return state;
-        case types.ADD_TASK:            
+        case types.ADD_TASK:
             var task = {
                 id : action.task.id,
                 name : action.task.name,
