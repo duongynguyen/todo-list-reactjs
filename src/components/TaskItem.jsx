@@ -19,7 +19,7 @@ class TaskItem extends Component {
 
   render() {
     var { task, index } = this.props; // var task = this.props.task;
-    return (      
+    return (
         <tr>
             <td>{ index }</td>
             <td>{ task.name }</td>

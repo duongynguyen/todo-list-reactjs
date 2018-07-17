@@ -8,16 +8,6 @@ import { connect } from 'react-redux';
 import * as actions from './actions/index';
 
 class App extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            taskEditting : null,
-            keyword : '',
-            sortBy : 'name',
-            sortValue : 1
-        }
-    }
-
     onToggleForm = () => {
         var { itemEditting } = this.props;
         if (itemEditting && itemEditting.id !== '') {
@@ -32,19 +22,8 @@ class App extends Component {
         });
     }
 
-    onSort = (sortBy, sortValue) => {
-        this.setState({
-            sortBy: sortBy,
-            sortValue: sortValue
-        });
-    }
-
     render() {
-        var { taskEditting, sortBy, sortValue } = this.state; // var tasks = this.state.tasks;
         let { isDisplayForm } = this.props;
-        var elementTaskForm = isDisplayForm 
-            ? <TaskForm  task={ taskEditting }/> 
-            : '';
         return (
             <div className="container">
                 <div className="text-center">
@@ -61,11 +40,7 @@ class App extends Component {
                             <span className="fa fa-plus mr-5"></span>Thêm Công Việc
                         </button>
                         <div className="row mt-15">
-                            <Control
-                                onSort={this.onSort}
-                                sortBy={sortBy}
-                                sortValue={sortValue}
-                            />
+                            <Control />
                         </div>
                         <div className="row mt-15">
                             <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
