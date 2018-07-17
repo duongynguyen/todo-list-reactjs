@@ -28,7 +28,7 @@ var myReducer = (state = initialState, action) => {
     switch(action.type) {
         case types.LIST_ALL:
             return state;
-        case types.ADD_TASK:            
+        case types.ADD_TASK:
             var task = {
                 id : action.task.id,
                 name : action.task.name,
@@ -51,7 +51,7 @@ var myReducer = (state = initialState, action) => {
                 state.splice(index, 1); 
                 localStorage.setItem('tasks', JSON.stringify(state));
             }
-            return [...state];               
+            return [...state];
         case types.UPDATE_STATUS_TASK:
             id = action.id;
             index = findIndex(state, id);
