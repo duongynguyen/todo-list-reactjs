@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import * as actions from './../actions/index';
 
 class Search extends Component {
     constructor (props) {
@@ -45,4 +47,12 @@ class Search extends Component {
   }
 }
 
-export default Search;
+const mapDispatchToProps = (dispatch, props) => {
+    return {
+        onSearch: (keySearch) => {
+            dispatch(actions.searchTask(keySearch));
+        }
+    }
+};
+
+export default connect(null, mapDispatchToProps)(Search);

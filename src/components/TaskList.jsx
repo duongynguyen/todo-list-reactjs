@@ -28,11 +28,11 @@ class TaskList extends Component {
     }
 
     render() {
-        var { tasks, filterTable } = this.props; // var tasks = this.props.tasks;
+        var { tasks, filterTable, keySearch, sort } = this.props; // var tasks = this.props.tasks;
         var { filterName, filterStatus } = this.state;
 
         // filter on table
-         if (filterTable) {
+        if (filterTable) {
             if (filterTable.name) {
                 tasks = tasks.filter((task) => {
                     return task.name.toLowerCase().indexOf(filterTable.name.toLowerCase()) !== -1;
@@ -47,16 +47,34 @@ class TaskList extends Component {
             })
         }
 
+        // search
+        tasks = tasks.filter((task) => {
+            return task.name.toLowerCase().indexOf(keySearch.toLowerCase()) !== -1;
+        });
+
+        // sort
+        if (sort.by === 'name') {
+            tasks.sort((a, b) => {
+                if (a.name > b.name) return sort.value;
+                else if (a.name < b.name) return -sort.value;
+                else return 0;
+            });
+        } else {
+            tasks.sort((a, b) => {
+                if (a.status > b.status) return -sort.value;
+                else if (a.status < b.status) return sort.value;
+                else return 0;
+            });
+        }
+
         var elementTasks = tasks.map((task, index) => {
             return <TaskItem
                         key={task.id}
                         index={index + 1}
                         task={task}
-                        onUpdateStatus={this.props.onUpdateStatus}
-                        onDelete={this.props.onDelete}
-                        onUpdate={this.props.onUpdate}
                     />
         });
+
         return (
             <table className="table table-bordered table-hover">
                 <thead>
@@ -99,6 +117,8 @@ const mapStateToProps = state => {
     return {
         tasks : state.tasks,
         filterTable: state.filterTable,
+        keySearch: state.search,
+        sort: state.sort
     }
 }; 
 
